@@ -30,4 +30,11 @@ jobs:
           context: .
           push: false
           file: Dockerfile-${{ matrix.file }}
+          tags: ${{ matrix.file }}-test
+      -
+        name: Test container
+        run: |
+                docker images
+                docker run -it ${{ matrix.file }}-test /bin/bash -c test_build.sh
+
 
