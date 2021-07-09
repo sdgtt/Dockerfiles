@@ -37,6 +37,6 @@ jobs:
       -
         name: Test container
         run: |
-                docker run ${{ matrix.file }}-test /bin/bash -c test_build.sh
+                docker run ${{ matrix.file }}-test /bin/bash < test_build.sh
 
 
