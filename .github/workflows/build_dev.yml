@@ -8,29 +8,35 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["hdl", "sw", "ubuntu-18.04", "ubuntu-20.04"]
+        project:
+          [
+            "hdl",
+            "sw",
+            "libiio-ubuntu-18.04",
+            "libiio-ubuntu-20.04",
+            "libiio-fedora-34",
+          ]
         include:
-        - project: "hdl"
-          DOCKERFILE: "Dockerfile-hdl"
-          TAG_ROOT: "hdl-ci"
-        - project: "sw"
-          DOCKERFILE: "Dockerfile-sw"
-          TAG_ROOT: "sw-ci"
-        - project: "libiio-ubuntu-18.04"
-          DOCKERFILE: "libiio/Dockerfile-ubuntu-18.04"
-          TAG_ROOT: "libiio_ubuntu_18_04-ci"
-        - project: "libiio-ubuntu-20.04"
-          DOCKERFILE: "libiio/Dockerfile-ubuntu-20.04"
-          TAG_ROOT: "libiio_ubuntu_20_04-ci"
-        - project: "libiio-fedora-34"
-          DOCKERFILE: "libiio/Dockerfile-fedora-34"
-          TAG_ROOT: "libiio_fedora_34-ci"
+          - project: "hdl"
+            DOCKERFILE: "Dockerfile-hdl"
+            TAG_ROOT: "hdl-ci"
+          - project: "sw"
+            DOCKERFILE: "Dockerfile-sw"
+            TAG_ROOT: "sw-ci"
+          - project: "libiio-ubuntu-18.04"
+            DOCKERFILE: "libiio/Dockerfile-ubuntu-18.04"
+            TAG_ROOT: "libiio_ubuntu_18_04-ci"
+          - project: "libiio-ubuntu-20.04"
+            DOCKERFILE: "libiio/Dockerfile-ubuntu-20.04"
+            TAG_ROOT: "libiio_ubuntu_20_04-ci"
+          - project: "libiio-fedora-34"
+            DOCKERFILE: "libiio/Dockerfile-fedora-34"
+            TAG_ROOT: "libiio_fedora_34-ci"
 
     steps:
-      -
-        name: Login to DockerHub
+      - name: Login to DockerHub
         if: github.ref == 'refs/heads/main'
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
