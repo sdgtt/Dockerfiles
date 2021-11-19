@@ -66,6 +66,7 @@ jobs:
           - project: "libiio-ubuntu-18.04"
             DOCKERFILE: "libiio/Dockerfile-ubuntu-18.04"
             TAG_ROOT: "libiio_ubuntu_18_04-ci-arm-ppc"
+            ARCH: linux/arm64
 
     # steps:
     #   - name: Checkout
@@ -94,15 +95,12 @@ jobs:
     steps:
       - run: |
           sudo apt-get update -y
-          sudo apt-get install -y gcc-arm-linux-gnueabihf libc6-dev-armhf-cross qemu-arm-static
-          sudo apt-get install -y g++-arm-linux-gnueabihf libstdc++-4.8-dev-armhf-cross
-          sudo apt-get install -y g++-aarch64-linux-gnu libstdc++-4.8-dev-arm64-cross
           sudo apt-get install -y qemu-system-ppc64
           sudo apt-get install qemu
           sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
         name: "Setup"
       - run: |
-          sudo docker run --name container -t --privileged -v "$GITHUB_WORKSPACE"/libiio:"/ci" -v "/usr/bin/qemu-$(arch)-static":"/usr/bin/qemu-$(arch)-static" "$(image)" /bin/bash -c "cd /ci/ && chmod +x ./$(build_script) && ./$(build_script)"
+          sudo docker run --name container -t --privileged -v "$(GITHUB_WORKSPACE)"/libiio:"/ci" -v "/usr/bin/qemu-$(ARCH)-static":"/usr/bin/qemu-$(ARCH)-static" "$(image)" /bin/bash -c "cd /ci/ && chmod +x ./$(build_script) && ./$(build_script)"
           sudo docker stop container
           sudo docker commit container "$(image)"
         name: "Build"
