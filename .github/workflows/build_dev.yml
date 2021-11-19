@@ -1,4 +1,4 @@
-name: ci-dev
+name: ci-build-deploy
 
 on: push
 
@@ -8,18 +8,45 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        filename:
-          [
-            "Dockerfile-hdl",
-            "Dockerfile-sw",
-            "libiio/Dockerfile-ubuntu-18.04",
-            "libiio/Dockerfile-ubuntu-20.04",
-            "libiio/Dockerfile-fedora-34",
-          ]
+        project: ["hdl", "sw", "ubuntu-18.04", "ubuntu-20.04"]
+        include:
+        - project: "hdl"
+          Dockerfile: "Dockerfile-hdl"
+          tag_root: "hdl-ci"
+        - project: "sw"
+          Dockerfile: "Dockerfile-sw"
+          tag_root: "sw-ci"
+        - project: "libiio-ubuntu-18.04"
+          Dockerfile: "libiio/Dockerfile-ubuntu-18.04"
+          tag_root: "libiio_ubuntu_18_04-ci"
+        - project: "libiio-ubuntu-20.04"
+          Dockerfile: "libiio/Dockerfile-ubuntu-20.04"
+          tag_root: "libiio_ubuntu_20_04-ci"
+        - project: "libiio-fedora-34"
+          Dockerfile: "libiio/Dockerfile-fedora-34"
+          tag_root: "libiio_fedora_34-ci"
+
     steps:
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: ${{ matrix.filename }}
+          file: ${{ matrix.Dockerfile }}
           push: false
+
+      -
+        name: Login to DockerHub
+        if: github.ref == 'refs/heads/main'
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        if: github.ref == 'refs/heads/main'
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          file: ${{ matrix.Dockerfile }}
+          push: true
+          tags: tfcollins/${{ matrix.tag_root }}:latest
