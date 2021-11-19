@@ -11,20 +11,20 @@ jobs:
         project: ["hdl", "sw", "ubuntu-18.04", "ubuntu-20.04"]
         include:
         - project: "hdl"
-          Dockerfile: "Dockerfile-hdl"
-          tag_root: "hdl-ci"
+          DOCKERFILE: "Dockerfile-hdl"
+          TAG_ROOT: "hdl-ci"
         - project: "sw"
-          Dockerfile: "Dockerfile-sw"
-          tag_root: "sw-ci"
+          DOCKERFILE: "Dockerfile-sw"
+          TAG_ROOT: "sw-ci"
         - project: "libiio-ubuntu-18.04"
-          Dockerfile: "libiio/Dockerfile-ubuntu-18.04"
-          tag_root: "libiio_ubuntu_18_04-ci"
+          DOCKERFILE: "libiio/Dockerfile-ubuntu-18.04"
+          TAG_ROOT: "libiio_ubuntu_18_04-ci"
         - project: "libiio-ubuntu-20.04"
-          Dockerfile: "libiio/Dockerfile-ubuntu-20.04"
-          tag_root: "libiio_ubuntu_20_04-ci"
+          DOCKERFILE: "libiio/Dockerfile-ubuntu-20.04"
+          TAG_ROOT: "libiio_ubuntu_20_04-ci"
         - project: "libiio-fedora-34"
-          Dockerfile: "libiio/Dockerfile-fedora-34"
-          tag_root: "libiio_fedora_34-ci"
+          DOCKERFILE: "libiio/Dockerfile-fedora-34"
+          TAG_ROOT: "libiio_fedora_34-ci"
 
     steps:
       -
@@ -39,6 +39,6 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          file: ${{ matrix.project.Dockerfile }}
+          file: ${{ matrix.DOCKERFILE }}
           push: ${{ github.ref == 'refs/heads/main' }}
-          tags: tfcollins/${{ matrix.project.tag_root }}:latest
+          tags: tfcollins/${{ matrix.TAG_ROOT }}:latest
