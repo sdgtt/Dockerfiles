@@ -61,14 +61,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["libiio-ubuntu-18.04", "libiio-ubuntu-20.04"]
+        project: ["libiio-ubuntu-18.04"]
         include:
           - project: "libiio-ubuntu-18.04"
             DOCKERFILE: "libiio/Dockerfile-ubuntu-18.04"
             TAG_ROOT: "libiio_ubuntu_18_04-ci-arm-ppc"
-          - project: "libiio-ubuntu-20.04"
-            DOCKERFILE: "libiio/Dockerfile-ubuntu-20.04"
-            TAG_ROOT: "libiio_ubuntu_20_04-ci-arm-ppc"
 
     steps:
       - name: Checkout
