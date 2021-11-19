@@ -67,26 +67,41 @@ jobs:
             DOCKERFILE: "libiio/Dockerfile-ubuntu-18.04"
             TAG_ROOT: "libiio_ubuntu_18_04-ci-arm-ppc"
 
+    # steps:
+    #   - name: Checkout
+    #     uses: actions/checkout@v2
+    #   - name: Set up QEMU
+    #     uses: docker/setup-qemu-action@v1
+    #   - name: Set up Docker Buildx
+    #     uses: docker/setup-buildx-action@v1
+
+    #   - name: Login to DockerHub
+    #     if: github.ref == 'refs/heads/main'
+    #     uses: docker/login-action@v1
+    #     with:
+    #       username: ${{ secrets.DOCKERHUB_USERNAME }}
+    #       password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    #   - name: Build and push
+    #     id: docker_build
+    #     uses: docker/build-push-action@v2
+    #     with:
+    #       file: ${{ matrix.DOCKERFILE }}
+    #       platforms: linux/arm64,linux/ppc64le,linux/s390x,linux/arm/v7
+    #       push: ${{ github.ref == 'refs/heads/main' }}
+    #       tags: tfcollins/${{ matrix.TAG_ROOT }}:latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Login to DockerHub
-        if: github.ref == 'refs/heads/main'
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          file: ${{ matrix.DOCKERFILE }}
-          platforms: linux/arm64,linux/ppc64le,linux/s390x,linux/arm/v7
-          push: ${{ github.ref == 'refs/heads/main' }}
-          tags: tfcollins/${{ matrix.TAG_ROOT }}:latest
+      - run: |
+          sudo apt-get install -y gcc-arm-linux-gnueabihf libc6-dev-armhf-cross qemu-arm-static
+          sudo apt-get install -y g++-arm-linux-gnueabihf libstdc++-4.8-dev-armhf-cross
+          sudo apt-get install -y g++-aarch64-linux-gnu libstdc++-4.8-dev-arm64-cross
+          sudo apt-get install -y qemu-system-ppc64
+          sudo apt-get install qemu
+          sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+        name: "Setup"
+      - run: |
+          sudo docker run --name container -t --privileged -v "$GITHUB_WORKSPACE"/libiio:"/ci" -v "/usr/bin/qemu-$(arch)-static":"/usr/bin/qemu-$(arch)-static" "$(image)" /bin/bash -c "cd /ci/ && chmod +x ./$(build_script) && ./$(build_script)"
+          sudo docker stop container
+          sudo docker commit container "$(image)"
+        name: "Build"
