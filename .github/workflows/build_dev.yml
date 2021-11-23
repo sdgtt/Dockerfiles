@@ -104,7 +104,7 @@ jobs:
         name: "Setup"
       - run: |
           sudo docker run --name ${{ matrix.TAG_ROOT }} -t --privileged -v "${{ github.workspace }}/libiio":"/ci" -v "/usr/bin/qemu-${{ matrix.ARCH }}-static":"/usr/bin/qemu-${{ matrix.ARCH }}-static" "${{ matrix.REFERENCE_IMAGE }}" /bin/bash -c "cd /ci/ && ls -l && chmod +x ./ci-ubuntu.sh && ./ci-ubuntu.sh"
-          sudo docker stop ${{ matrix.TAG_ROOT }} 
-          sudo docker commit ${{ matrix.TAG_ROOT }}
+          sudo docker stop ${{ matrix.TAG_ROOT }}
+          sudo docker commit ${{ matrix.TAG_ROOT }} tfcollins/${{ matrix.TAG_ROOT }}:latest
           sudo docker image ls
         name: "Build"
