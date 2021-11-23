@@ -67,6 +67,7 @@ jobs:
             DOCKERFILE: "libiio/Dockerfile-ubuntu-18.04"
             TAG_ROOT: "libiio_ubuntu_18_04-ci-arm-ppc"
             ARCH: linux/arm64
+            REFERENCE_IMAGE: "ubuntu:18.04"
 
     # steps:
     #   - name: Checkout
@@ -100,7 +101,7 @@ jobs:
           sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
         name: "Setup"
       - run: |
-          sudo docker run --name container -t --privileged -v "$GITHUB_WORKSPACE"/libiio:"/ci" -v "/usr/bin/qemu-${{ matrix.ARCH }}-static":"/usr/bin/qemu-${{ matrix.ARCH }}-static" "${{ matrix.project }}" /bin/bash -c "cd /ci/ && chmod +x ./ci-ubuntu.sh && ./ci-ubuntu.sh"
+          sudo docker run --name ${{ matrix.TAG_ROOT }} -t --privileged -v "$GITHUB_WORKSPACE"/libiio:"/ci" -v "/usr/bin/qemu-${{ matrix.ARCH }}-static":"/usr/bin/qemu-${{ matrix.ARCH }}-static" "${{ matrix.REFERENCE_IMAGE }}" /bin/bash -c "cd /ci/ && chmod +x ./ci-ubuntu.sh && ./ci-ubuntu.sh"
           sudo docker stop container
-          sudo docker commit container "$image"
+          sudo docker commit container ${{ matrix.TAG_ROOT }}
         name: "Build"
