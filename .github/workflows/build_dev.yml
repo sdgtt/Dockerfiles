@@ -107,6 +107,6 @@ jobs:
           ls -l ${{ github.workspace }}
           ls -l "${{ github.workspace }}/libiio"
           sudo docker run --name ${{ matrix.TAG_ROOT }} -t --privileged -v "${{ github.workspace }}/libiio":"/ci" -v "/usr/bin/qemu-${{ matrix.ARCH }}-static":"/usr/bin/qemu-${{ matrix.ARCH }}-static" "${{ matrix.REFERENCE_IMAGE }}" /bin/bash -c "cd /ci/ && ls -l && chmod +x ./ci-ubuntu.sh && ./ci-ubuntu.sh"
-          sudo docker stop container
-          sudo docker commit container ${{ matrix.TAG_ROOT }}
+          sudo docker stop ${{ matrix.TAG_ROOT }} 
+          sudo docker commit ${{ matrix.TAG_ROOT }}
         name: "Build"
