@@ -107,4 +107,5 @@ jobs:
           sudo docker stop ${{ matrix.TAG_ROOT }}
           sudo docker commit ${{ matrix.TAG_ROOT }} tfcollins/${{ matrix.TAG_ROOT }}:latest
           sudo docker image ls
+          sudo docker push tfcollins/${{ matrix.TAG_ROOT }}:latest
         name: "Build"
