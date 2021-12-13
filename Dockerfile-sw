@@ -14,9 +14,12 @@ RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libicu66 libicu-dev scre
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg --add-architecture i386
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y lib32stdc++6
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y cmake make build-essential libxml2-dev bison flex libcdk5-dev cmake
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libaio-dev libusb-1.0-0-dev libserialport-dev
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libaio-dev libusb-1.0-0-dev
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libavahi-common-dev libavahi-client-dev
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y python3-pip iputils-ping sudo net-tools iproute2
+
+RUN git clone https://github.com/sigrokproject/libserialport.git
+RUN cd libserialport && ./autogen.sh && ./configure && make && make install
 
 # Set BASH as the default shell
 RUN echo "dash dash/sh boolean false" | debconf-set-selections 
