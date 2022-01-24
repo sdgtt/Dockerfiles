@@ -2,11 +2,15 @@
 set -e
 
 # Copy read-only folder(s) into readable folder(s)
-if [ -d "/mlhspro" ]; then
-  echo "Adding HSP files"
-  cp -r /mlhspro /mlhsp
+if [ ! -d "/mlhsp" ]; then
+        if [ -d "/mlhspro" ]; then
+          echo "Adding HSP files"
+          cp -r /mlhspro /mlhsp
+        else
+          echo "/mlhspro folder does not exist"
+        fi
 else
-  echo "/mlhsp folder does not exist"
+        echo "/mlhsp already exists, skipping ..."
 fi
 
 if [ -d "/root/.Xilinxro" ]; then
