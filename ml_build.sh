@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Build cores
-/usr/local/MATLAB/R2021a/bin/matlab -nodesktop -nodisplay -nosplash -r "hdlsetuptoolpath('ToolName','Xilinx Vivado','ToolPath','/opt/Xilinx/Vivado/2019.1/bin/vivado');setupzynqradiorepositories();exit(0);"
+/usr/local/MATLAB/$1/bin/matlab -nodesktop -nodisplay -nosplash -r "hdlsetuptoolpath('ToolName','Xilinx Vivado','ToolPath','/opt/Xilinx/Vivado/${2}/bin/vivado');setupzynqradiorepositories();exit(0);"
 
 # Build container
 mkdir -p mlhsp
