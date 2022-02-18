@@ -6,7 +6,7 @@ RUN dnf install -y cmake gcc git
 
 RUN dnf install -y flex bison libxml2-devel
 
-RUN dnf install -y libaio-devel libusb-devel.x86_64 avahi-devel.x86_64 libzstd-devel.x86_64
+RUN dnf install -y libaio-devel libusb-devel.x86_64 avahi-devel.x86_64 libzstd-devel.x86_64 rpm rpm-build
 
 RUN dnf install -y doxygen graphviz
 
