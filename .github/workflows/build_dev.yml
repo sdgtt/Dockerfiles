@@ -19,6 +19,7 @@ jobs:
             "sw",
             "libiio-ubuntu-18.04",
             "libiio-ubuntu-20.04",
+            "libiio-ubuntu-22.04",
             "libiio-fedora-34",
           ]
         include:
@@ -34,6 +35,9 @@ jobs:
           - project: "libiio-ubuntu-20.04"
             DOCKERFILE: "libiio/Dockerfile-ubuntu-20.04"
             TAG_ROOT: "libiio_ubuntu_20_04-ci"
+          - project: "libiio-ubuntu-22.04"
+            DOCKERFILE: "libiio/Dockerfile-ubuntu-22.04"
+            TAG_ROOT: "libiio_ubuntu_22_04-ci"
           - project: "libiio-fedora-34"
             DOCKERFILE: "libiio/Dockerfile-fedora-34"
             TAG_ROOT: "libiio_fedora_34-ci"
