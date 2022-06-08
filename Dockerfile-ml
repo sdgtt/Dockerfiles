@@ -17,9 +17,9 @@ RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg --add-architecture i386
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y lib32stdc++6
 
 # Install patched glibc
-RUN wget https://github.com/mathworks/build-glibc-bz-19329-patch/releases/download/ubuntu-focal/all-packages.tar.gz
-RUN tar xf all-packages.tar.gz
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg -i *.deb || true
+#RUN wget https://github.com/mathworks/build-glibc-bz-19329-patch/releases/download/ubuntu-focal/all-packages.tar.gz
+#RUN tar xf all-packages.tar.gz
+#RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg -i *.deb || true
 
 # Set BASH as the default shell
 RUN echo "dash dash/sh boolean false" | debconf-set-selections
