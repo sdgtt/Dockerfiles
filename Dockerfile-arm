@@ -1,0 +1,7 @@
+FROM ubuntu:20.04
+CMD echo "Running on $(uname -m)"
+
+RUN apt-get update
+COPY libiio/ci-ubuntu.sh /tmp/ci-ubuntu.sh
+RUN chmod +x /tmp/ci-ubuntu.sh
+RUN /tmp/ci-ubuntu.sh
