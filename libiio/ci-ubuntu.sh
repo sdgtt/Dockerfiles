@@ -12,7 +12,7 @@ DEBIAN_FRONTEND=noninteractive apt install -y python3 python3-sphinx python3-set
 # If armv7l install cmake from source
 if [ "$(uname -m)" == "armv7l" ]; then
     DEBIAN_FRONTEND=noninteractive apt remove -y cmake
-    wget https://github.com/Kitware/CMake/releases/download/v3.23.2/cmake-3.23.2.tar.gz
+    wget --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.23.2/cmake-3.23.2.tar.gz
     tar xf cmake-3.23.2.tar.gz
     cd cmake-3.23.2
     ./bootstrap
