@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'tfcollins/remove-test-build'
   schedule:
     - cron: 0 0 * * 0
 
@@ -100,15 +101,15 @@ jobs:
       - name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
 
-      - name: Test build
-        run: |
-          cp Dockerfile-arm Dockerfile
-          docker buildx create --name armbuilder
-          docker buildx use armbuilder
-          docker buildx build --builder armbuilder -t test_${{ matrix.TAG_ROOT }} --platform linux/arm64 --load .
-          ARCH_CHECK=$(docker run --platform linux/arm64 test_${{ matrix.TAG_ROOT }}:latest uname -a)
-          echo "$ARCH_CHECK"
-          echo "$ARCH_CHECK" | grep -i aarch64 || exit 1
+      # - name: Test build
+      #   run: |
+      #     cp Dockerfile-arm Dockerfile
+      #     docker buildx create --name armbuilder
+      #     docker buildx use armbuilder
+      #     docker buildx build --builder armbuilder -t test_${{ matrix.TAG_ROOT }} --platform linux/arm64 --load .
+      #     ARCH_CHECK=$(docker run --platform linux/arm64 test_${{ matrix.TAG_ROOT }}:latest uname -a)
+      #     echo "$ARCH_CHECK"
+      #     echo "$ARCH_CHECK" | grep -i aarch64 || exit 1
 
       - name: Build and push
         id: docker_build
