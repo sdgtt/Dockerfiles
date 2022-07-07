@@ -16,7 +16,7 @@ if [ "$(uname -m)" == "armv7l" ]; then
     tar xf cmake-3.23.2.tar.gz
     cd cmake-3.23.2
     ./bootstrap
-    make -j
+    make
     make install
     ldconfig
 fi
