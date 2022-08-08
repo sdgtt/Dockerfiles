@@ -8,7 +8,7 @@ RUN dnf install -y flex bison libxml2-devel
 
 RUN dnf install -y libaio-devel libusb-devel.x86_64 avahi-devel.x86_64 libzstd-devel.x86_64 rpm rpm-build
 
-RUN dnf install -y doxygen graphviz
+RUN dnf install -y doxygen graphviz man2html
 
 RUN dnf install -y python3-pip python3-setuptools
 RUN pip3 install --upgrade pip
