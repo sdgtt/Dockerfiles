@@ -2,7 +2,7 @@ FROM fedora:34
 
 RUN dnf clean all && rm -r /var/cache/dnf  && dnf upgrade -y && dnf update -y
 
-RUN dnf install -y cmake gcc git
+RUN dnf install -y cmake gcc git wget
 
 RUN dnf install -y flex bison libxml2-devel
 
