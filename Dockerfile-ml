@@ -1,5 +1,5 @@
-FROM ubuntu:22.04
-
+FROM ubuntu:18.04
+ 
 MAINTAINER Travis Collins <travis.collins@analog.com>
 
 ENV XLNX_INSTALL_LOCATION=/opt/Xilinx
@@ -16,10 +16,22 @@ RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y python3-pip iputils-ping
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg --add-architecture i386
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y lib32stdc++6
 
-# Install patched glibc
-#RUN wget https://github.com/mathworks/build-glibc-bz-19329-patch/releases/download/ubuntu-focal/all-packages.tar.gz
-#RUN tar xf all-packages.tar.gz
-#RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg -i *.deb || true
+# https://support.xilinx.com/s/article/63794?language=en_US
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libstdc++6 libgtk2.0-0 dpkg-dev
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y python3-pip
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libtinfo5 libncurses5
+ 
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y build-essential python3-dev
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y wget curl lsb-release liberror-perl git
+ 
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install --no-install-recommends -y locales
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8
+ENV LANG en_US.UTF-8
+
+# Install patched glibc (MATLAB requirement)
+RUN wget https://github.com/mathworks/build-glibc-bz-19329-patch/releases/download/ubuntu-focal/all-packages.tar.gz
+RUN tar xf all-packages.tar.gz
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg -i *.deb || true
 
 # Set BASH as the default shell
 RUN echo "dash dash/sh boolean false" | debconf-set-selections
