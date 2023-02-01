@@ -1,5 +1,5 @@
-FROM ubuntu:18.04
- 
+FROM ubuntu:20.04
+
 MAINTAINER Travis Collins <travis.collins@analog.com>
 
 ENV XLNX_INSTALL_LOCATION=/opt/Xilinx
@@ -11,24 +11,12 @@ RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt update
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libpng-dev libfreetype6-dev libblas-dev liblapack-dev gfortran build-essential xorg
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y openjdk-8-jre openjdk-8-jdk libgtk2.0-0 libxss1 libxt6 zip unzip curl wget tar git xvfb
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y fakeroot libncurses5-dev libssl-dev ccache dfu-util u-boot-tools device-tree-compiler
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libssl-dev mtools bc python3 cpio zip unzip rsync file wget libicu-dev screen
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libssl-dev mtools bc python python3 cpio zip unzip rsync file wget libicu66 libicu-dev screen
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y python3-pip iputils-ping sudo net-tools iproute2 bison flex libtinfo5
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg --add-architecture i386
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y lib32stdc++6
 
-# https://support.xilinx.com/s/article/63794?language=en_US
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libstdc++6 libgtk2.0-0 dpkg-dev
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y python3-pip
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libtinfo5 libncurses5
- 
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y build-essential python3-dev
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y wget curl lsb-release liberror-perl git
- 
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install --no-install-recommends -y locales
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8
-ENV LANG en_US.UTF-8
-
-# Install patched glibc (MATLAB requirement)
+# Install patched glibc
 RUN wget https://github.com/mathworks/build-glibc-bz-19329-patch/releases/download/ubuntu-focal/all-packages.tar.gz
 RUN tar xf all-packages.tar.gz
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg -i *.deb || true
