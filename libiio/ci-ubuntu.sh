@@ -7,7 +7,7 @@ DEBIAN_FRONTEND=noninteractive apt install -y git sudo wget libssl-dev
 DEBIAN_FRONTEND=noninteractive apt install -y bison flex cmake git build-essential libxml2-dev doxygen
 DEBIAN_FRONTEND=noninteractive apt install -y libaio-dev libusb-1.0-0-dev libzstd-dev
 DEBIAN_FRONTEND=noninteractive apt install -y libserialport-dev libavahi-client-dev
-DEBIAN_FRONTEND=noninteractive apt install -y python3 python3-sphinx python3-setuptools
+DEBIAN_FRONTEND=noninteractive apt install -y python3 python3-sphinx python3-setuptools python3-pip
 
 # If armv7l install cmake from source
 if [ "$(uname -m)" == "armv7l" ]; then
