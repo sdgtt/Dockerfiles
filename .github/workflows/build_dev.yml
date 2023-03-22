@@ -17,6 +17,7 @@ jobs:
           [
             "hdl",
             "sw",
+            "libiio-debian-bullseye",
             "libiio-ubuntu-18.04",
             "libiio-ubuntu-20.04",
             "libiio-ubuntu-22.04",
@@ -41,6 +42,9 @@ jobs:
           - project: "libiio-fedora-34"
             DOCKERFILE: "libiio/Dockerfile-fedora-34"
             TAG_ROOT: "libiio_fedora_34-ci"
+          - project: "libiio-debian-bullseye"
+            DOCKERFILE: "libiio/Dockerfile-debian-bullseye"
+            TAG_ROOT: "libiio_debian_bullseye-ci"
 
     steps:
       - name: Checkout
@@ -70,13 +74,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["libiio-ubuntu-18.04"]
+        project: ["libiio-ubuntu-18.04", "libiio-debian-bullseye"]
         include:
           - project: "libiio-ubuntu-18.04"
             DOCKERFILE: "libiio/Dockerfile-ubuntu-18.04"
             TAG_ROOT: "libiio_ubuntu_18_04-ci-arm-ppc"
             ARCH: linux/arm64
             REFERENCE_IMAGE: "ubuntu:18.04"
+          - project: "libiio-debian-bullseye"
+            DOCKERFILE: "libiio/Dockerfile-debian-bullseye"
+            TAG_ROOT: "libiio_debian_bullseye-ci-arm-ppc"
+            ARCH: linux/arm64
+            REFERENCE_IMAGE: "debian:bullseye"
 
     steps:
       - name: Checkout
