@@ -12,7 +12,7 @@ RUN dnf install -y doxygen graphviz man2html
 
 RUN dnf install -y python3-pip python3-setuptools
 RUN pip3 install --upgrade pip
-RUN pip3 install sphinx sphinx_rtd_theme
+RUN pip3 install sphinx sphinx_rtd_theme furo
 
 RUN git clone https://github.com/pcercuei/libini.git
 RUN cd libini && mkdir build && cd build && cmake ../ && make && make install && ldconfig
