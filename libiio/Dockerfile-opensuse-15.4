@@ -1,0 +1,19 @@
+FROM opensuse/leap:15.4
+
+RUN zypper --gpg-auto-import-keys ref
+RUN zypper dup -y
+RUN zypper in -y gcc-c++ make cmake git
+RUN zypper in -y libxml2-devel bison flex cdk-devel libcdk5
+RUN zypper in -y libaio-devel libusb-1_0-devel libzstd-devel
+RUN zypper in -y libserialport-devel libavahi-devel
+RUN zypper in -y doxygen graphviz
+RUN zypper in -y wget curl tar
+RUN zypper in -y python3 python3-pip python3-setuptools
+RUN pip3 install --upgrade pip
+RUN pip3 install sphinx sphinx_rtd_theme furo
+
+RUN git clone https://github.com/pcercuei/libini.git
+RUN cd libini && mkdir build && cd build && cmake ../ && make && make install && cd ../..
+
+# Cleanup
+RUN rm -r /var/cache/zypp/* /var/log/zypper.log 

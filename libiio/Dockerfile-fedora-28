@@ -1,0 +1,23 @@
+# Fedora 28 is equivalent to RHEL8
+FROM fedora:28
+
+RUN dnf clean all && rm -r /var/cache/dnf  && dnf upgrade -y && dnf update -y
+
+RUN dnf groupinstall -y c-development
+RUN dnf install -y cmake gcc gcc-c++ git wget
+
+RUN dnf install -y flex bison libxml2-devel
+
+RUN dnf install -y libaio-devel libusb-devel.x86_64 avahi-devel.x86_64 libzstd-devel.x86_64 rpm rpm-build
+
+RUN dnf install -y doxygen graphviz man2html
+
+RUN dnf install -y python3-pip python3-setuptools
+RUN pip3 install --upgrade pip
+RUN pip3 install sphinx sphinx_rtd_theme furo
+
+RUN git clone https://github.com/pcercuei/libini.git
+RUN cd libini && mkdir build && cd build && cmake ../ && make && make install && ldconfig
+
+# Cleanup
+RUN dnf clean all
