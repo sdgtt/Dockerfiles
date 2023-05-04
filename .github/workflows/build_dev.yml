@@ -23,6 +23,7 @@ jobs:
             "libiio-ubuntu-22.04",
             "libiio-fedora-34",
             "libiio-fedora-28",
+            "libiio-centos-7",
             "libiio-opensuse-15.4",
           ]
         include:
@@ -50,6 +51,9 @@ jobs:
           - project: "libiio-fedora-28"
             DOCKERFILE: "libiio/Dockerfile-fedora-28"
             TAG_ROOT: "libiio_fedora_28-ci"
+          - project: "libiio-centos-7"
+            DOCKERFILE: "libiio/Dockerfile-centos-7"
+            TAG_ROOT: "libiio_centos_7-ci"
           - project: "libiio-opensuse-15.4"
             DOCKERFILE: "libiio/Dockerfile-opensuse-15.4"
             TAG_ROOT: "libiio_opensuse_15_4-ci"
