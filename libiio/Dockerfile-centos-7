@@ -7,7 +7,7 @@ RUN yum install -y epel-release
 
 RUN yum install -y flex bison libxml2-devel
 
-RUN yum install -y libaio-devel libusb-devel.x86_64 avahi-devel.x86_64 libzstd-devel.x86_64 rpm rpm-build
+RUN yum install -y libaio-devel libusb-devel.x86_64 avahi-devel.x86_64 libzstd-devel.x86_64 libserialport-devel.x86_64 rpm rpm-build
 
 RUN yum install -y doxygen graphviz man2html
 
