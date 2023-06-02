@@ -3,7 +3,7 @@ name: ci-build-deploy
 on:
   push:
     branches:
-      - 'main'
+      - "main"
   schedule:
     - cron: 0 0 * * 0
 
@@ -25,6 +25,7 @@ jobs:
             "libiio-fedora-28",
             "libiio-centos-7",
             "libiio-opensuse-15.4",
+            "test-harness",
           ]
         include:
           - project: "hdl"
@@ -57,6 +58,9 @@ jobs:
           - project: "libiio-opensuse-15.4"
             DOCKERFILE: "libiio/Dockerfile-opensuse-15.4"
             TAG_ROOT: "libiio_opensuse_15_4-ci"
+          - project: "test-harness"
+            DOCKERFILE: "test-harness/Dockerfile-test-harness"
+            TAG_ROOT: "test-harness-ci"
 
     steps:
       - name: Checkout
