@@ -50,7 +50,7 @@ jobs:
           push: true
           tags: |
             tfcollins/${{ matrix.TAG_ROOT }}:latest
-            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/sdgtt/dockerfiles/${{ matrix.TAG_ROOT }}:latest
 
 
   # docker_arm:
