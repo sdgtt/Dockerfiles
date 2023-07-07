@@ -93,7 +93,7 @@ jobs:
         uses: docker/build-push-action@v4.1.1
         with:
           file: ${{ matrix.DOCKERFILE }}
-          push: github.ref == 'refs/heads/main'
+          push: ${{ github.ref == 'refs/heads/main' }}
           tags: |
             tfcollins/${{ matrix.TAG_ROOT }}:latest
             ghcr.io/sdgtt/dockerfiles/${{ matrix.TAG_ROOT }}:latest
