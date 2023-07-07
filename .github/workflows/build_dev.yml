@@ -10,6 +10,9 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     strategy:
       fail-fast: false
       matrix:
@@ -78,19 +81,22 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Log in to the GitHub Container registry
+        if: github.ref == 'refs/heads/main'
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push Docker images
         id: docker_build
         uses: docker/build-push-action@v4.1.1
         with:
           file: ${{ matrix.DOCKERFILE }}
-          push: ${{ github.ref == 'refs/heads/main' }}
-          tags: tfcollins/${{ matrix.TAG_ROOT }}:latest
+          push: github.ref == 'refs/heads/main'
+          tags: |
+            tfcollins/${{ matrix.TAG_ROOT }}:latest
+            ghcr.io/sdgtt/dockerfiles/${{ matrix.TAG_ROOT }}:latest
 
 
   docker_arm:
