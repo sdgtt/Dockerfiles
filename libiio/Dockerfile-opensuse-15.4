@@ -2,7 +2,7 @@ FROM opensuse/leap:15.4
 
 RUN zypper --gpg-auto-import-keys ref
 RUN zypper dup -y
-RUN zypper in -y gcc-c++ make cmake git hxtools-scripts
+RUN zypper in -y gcc-c++ make cmake git hxtools-scripts sudo
 RUN zypper in -y libxml2-devel bison flex cdk-devel libcdk5
 RUN zypper in -y libaio-devel libusb-1_0-devel libzstd-devel
 RUN zypper in -y libserialport-devel libavahi-devel
