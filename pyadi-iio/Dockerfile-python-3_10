@@ -3,7 +3,7 @@ FROM python:3.10
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt update
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y wget sudo
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y wget sudo git
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND sudo apt install -y python3-tk
 
 COPY pyadi-iio/all_python_versions.sh /tmp/all_python_versions.sh
