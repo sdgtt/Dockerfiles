@@ -29,6 +29,11 @@ jobs:
             "libiio-centos-7",
             "libiio-opensuse-15.4",
             "test-harness",
+            "pyadi-iio-python-3.7",
+            "pyadi-iio-python-3.8",
+            "pyadi-iio-python-3.9",
+            "pyadi-iio-python-3.10",
+            "pyadi-iio-python-3.11",
           ]
         include:
           - project: "hdl"
@@ -67,6 +72,21 @@ jobs:
           - project: "test-harness"
             DOCKERFILE: "test-harness/Dockerfile-test-harness"
             TAG_ROOT: "test-harness-ci"
+          - project: "pyadi-iio-python-3.7"
+            DOCKERFILE: "pyadi-iio/Dockerfile-python-3.7"
+            TAG_ROOT: "pyadi-iio-python-3.7-ci"
+          - project: "pyadi-iio-python-3.8"
+            DOCKERFILE: "pyadi-iio/Dockerfile-python-3.8"
+            TAG_ROOT: "pyadi-iio-python-3.8-ci"
+          - project: "pyadi-iio-python-3.9"
+            DOCKERFILE: "pyadi-iio/Dockerfile-python-3.9"
+            TAG_ROOT: "pyadi-iio-python-3.9-ci"
+          - project: "pyadi-iio-python-3.10"
+            DOCKERFILE: "pyadi-iio/Dockerfile-python-3.10"
+            TAG_ROOT: "pyadi-iio-python-3.10-ci"
+          - project: "pyadi-iio-python-3.11"
+            DOCKERFILE: "pyadi-iio/Dockerfile-python-3.11"
+            TAG_ROOT: "pyadi-iio-python-3.11-ci"
 
     steps:
       - name: Checkout
