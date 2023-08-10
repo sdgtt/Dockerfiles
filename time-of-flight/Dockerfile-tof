@@ -1,0 +1,24 @@
+FROM ubuntu:20.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt update
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y sudo git unzip wget vim
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND sudo apt install -y cmake make build-essential
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND sudo apt install -y libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev glfw3-dev libssl-dev
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND sudo apt install -y python3-pip python3-tk python3-dev 
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND sudo apt install -y tigervnc-standalone-server openbox
+
+# Set BASH as the default shell
+RUN echo "dash dash/sh boolean false" | debconf-set-selections 
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg-reconfigure dash
+
+# Install other dependencies
+COPY /time-of-flight/*.sh /scripts/
+RUN chmod -R +x scripts
+RUN /scripts/install_deps.sh 
+RUN /scripts/install_tofsdk.sh 
+RUN /scripts/install_testdeps.sh 
+
+# Cleanup
+RUN apt-get clean
