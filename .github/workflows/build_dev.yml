@@ -34,6 +34,7 @@ jobs:
             "pyadi-iio-python-3_9",
             "pyadi-iio-python-3_10",
             "pyadi-iio-python-3_11",
+            "dev",
           ]
         include:
           - project: "hdl"
@@ -87,6 +88,9 @@ jobs:
           - project: "pyadi-iio-python-3_11"
             DOCKERFILE: "pyadi-iio/Dockerfile-python-3_11"
             TAG_ROOT: "pyadi-iio-python-3_11-ci"
+          - project: "dev"
+            DOCKERFILE: "Dockerfile-dev"
+            TAG_ROOT: "dev"
 
     steps:
       - name: Checkout

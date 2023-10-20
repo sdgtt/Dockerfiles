@@ -1,0 +1,45 @@
+# This is a developer designed container
+
+FROM ubuntu:22.04
+
+LABEL MAINTAINER "Travis Collins <travis.collins@analog.com>"
+
+# Core dependencies
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt update
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y iputils-ping sudo net-tools iproute2
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y vim
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libpng-dev libfreetype6-dev libblas-dev liblapack-dev gfortran build-essential xorg
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y openjdk-8-jre openjdk-8-jdk libgtk2.0-0 libxss1 libxt6 zip unzip curl wget tar git xvfb
+
+# For kernel dev
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y fakeroot libncurses5-dev libncurses5 libssl-dev ccache dfu-util u-boot-tools device-tree-compiler
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libssl-dev mtools bc python3 cpio zip unzip rsync file wget
+
+# For libiio
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y cmake make build-essential libxml2-dev bison flex libcdk5-dev cmake
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libaio-dev libusb-1.0-0-dev libserialport-dev
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libavahi-common-dev libavahi-client-dev
+
+# For python
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y python3-pip bpython
+RUN pip3 install --upgrade pip
+RUN pip3 install setuptools wheel numpy scipy matplotlib jupyterlab pandas
+
+# For HDL
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libicu70 libicu-dev screen
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg --add-architecture i386
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y lib32stdc++6
+
+# ZSH
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y zsh fonts-powerline zsh-syntax-highlighting zsh-autosuggestions zsh-theme-powerlevel9k
+RUN chsh -s $(which zsh)
+
+# Set up locale
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt install -y locales
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+RUN locale-gen en_US.UTF-8
+
+# Cleanup
+RUN apt-get clean
