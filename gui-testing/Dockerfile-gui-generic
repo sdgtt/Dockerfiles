@@ -15,11 +15,12 @@ RUN echo "dash dash/sh boolean false" | debconf-set-selections
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg-reconfigure dash
 
 # Install other dependencies
-COPY /time-of-flight/*.sh /scripts/
+COPY /gui-testing/*.sh /scripts/
+COPY /test-harness/*.sh /scripts/
 RUN chmod -R +x scripts
-RUN /scripts/install_deps.sh 
-RUN /scripts/install_tofsdk.sh 
 RUN /scripts/install_testdeps.sh 
+RUN /scripts/install_nebula.sh
+RUN /scripts/install_telemetry.sh
 
 # Cleanup
 RUN apt-get clean
