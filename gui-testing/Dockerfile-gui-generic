@@ -8,7 +8,7 @@ RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y cmake make build-essenti
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libgl1-mesa-dev libglfw3-dev libssl-dev libopencv-contrib-dev libopencv-dev
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y python3-pip python3-tk python3-dev 
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y tigervnc-standalone-server openbox
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y tigervnc-standalone-server openbox gnome-screenshot
 
 # Set BASH as the default shell
 RUN echo "dash dash/sh boolean false" | debconf-set-selections 
