@@ -131,7 +131,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["libiio-ubuntu-18.04", "libiio-debian-bullseye"]
+        project: ["libiio-ubuntu-18.04", "libiio-debian-bullseye", "libiio-debian-bookworm"]
         include:
           - project: "libiio-ubuntu-18.04"
             DOCKERFILE: "libiio/Dockerfile-ubuntu-18.04"
@@ -143,6 +143,11 @@ jobs:
             TAG_ROOT: "libiio_debian_bullseye-ci-arm-ppc"
             ARCH: linux/arm64
             REFERENCE_IMAGE: "debian:bullseye"
+          - project: "libiio-debian-bookworm"
+            DOCKERFILE: "libiio/Dockerfile-debian-bookworm"
+            TAG_ROOT: "libiio_debian_bookworm-ci-arm-ppc"
+            ARCH: linux/arm64
+            REFERENCE_IMAGE: "debian:bookworm"
 
     steps:
       - name: Checkout
