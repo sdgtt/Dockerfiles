@@ -28,7 +28,8 @@ jobs:
             "libiio-fedora-28",
             "libiio-centos-7",
             "libiio-opensuse-15.4",
-            "test-harness",
+            "test-harness-ubuntu-20_04",
+            "test-harness-ubuntu-22_04",
             "pyadi-iio-python-3_7",
             "pyadi-iio-python-3_8",
             "pyadi-iio-python-3_9",
@@ -70,9 +71,12 @@ jobs:
           - project: "libiio-opensuse-15.4"
             DOCKERFILE: "libiio/Dockerfile-opensuse-15.4"
             TAG_ROOT: "libiio_opensuse_15_4-ci"
-          - project: "test-harness"
+          - project: "test-harness-ubuntu-20_04"
             DOCKERFILE: "test-harness/Dockerfile-test-harness"
             TAG_ROOT: "test-harness-ci"
+          - project: "test-harness-ubuntu-22_04"
+            DOCKERFILE: "test-harness/Dockerfile-test-harness-ubuntu22-04"
+            TAG_ROOT: "test-harness-ci-ubuntu-22_04"
           - project: "pyadi-iio-python-3_7"
             DOCKERFILE: "pyadi-iio/Dockerfile-python-3_7"
             TAG_ROOT: "pyadi-iio-python-3_7-ci"
