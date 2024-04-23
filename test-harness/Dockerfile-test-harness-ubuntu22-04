@@ -22,6 +22,7 @@ RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y lib32stdc++6
 
 # For python
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y python3-pip bpython python3-tk
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND python3 -m pip install --upgrade pip
 
 # For HDL
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y cmake make build-essential libxml2-dev bison flex libcdk5-dev cmake
