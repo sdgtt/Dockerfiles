@@ -21,7 +21,6 @@ jobs:
             "hdl",
             "sw",
             "libiio-debian-bullseye",
-            "libiio-ubuntu-18.04",
             "libiio-ubuntu-20.04",
             "libiio-ubuntu-22.04",
             "libiio-fedora-34",
@@ -44,9 +43,6 @@ jobs:
           - project: "sw"
             DOCKERFILE: "Dockerfile-sw"
             TAG_ROOT: "sw-ci"
-          - project: "libiio-ubuntu-18.04"
-            DOCKERFILE: "libiio/Dockerfile-ubuntu-18.04"
-            TAG_ROOT: "libiio_ubuntu_18_04-ci"
           - project: "libiio-ubuntu-20.04"
             DOCKERFILE: "libiio/Dockerfile-ubuntu-20.04"
             TAG_ROOT: "libiio_ubuntu_20_04-ci"
@@ -135,13 +131,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["libiio-ubuntu-18.04", "libiio-debian-bullseye", "libiio-debian-bookworm"]
+        project: ["libiio-ubuntu-20.04", "libiio-debian-bullseye", "libiio-debian-bookworm"]
         include:
-          - project: "libiio-ubuntu-18.04"
-            DOCKERFILE: "libiio/Dockerfile-ubuntu-18.04"
-            TAG_ROOT: "libiio_ubuntu_18_04-ci-arm-ppc"
+          - project: "libiio-ubuntu-20.04"
+            DOCKERFILE: "libiio/Dockerfile-ubuntu-20.04"
+            TAG_ROOT: "libiio_ubuntu_20_04-ci-arm-ppc"
             ARCH: linux/arm64
-            REFERENCE_IMAGE: "ubuntu:18.04"
+            REFERENCE_IMAGE: "ubuntu:20.04"
           - project: "libiio-debian-bullseye"
             DOCKERFILE: "libiio/Dockerfile-debian-bullseye"
             TAG_ROOT: "libiio_debian_bullseye-ci-arm-ppc"
