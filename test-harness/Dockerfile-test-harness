@@ -36,6 +36,7 @@ RUN /scripts/install_libserialport.sh
 RUN /scripts/install_libiio.sh 
 RUN /scripts/install_nebula.sh
 RUN /scripts/install_telemetry.sh
+RUN /scripts/install_pyadi-iio_req.sh
 
 # Cleanup
 RUN apt-get clean
