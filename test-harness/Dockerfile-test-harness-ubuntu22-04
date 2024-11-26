@@ -53,3 +53,6 @@ RUN apt-get clean
 
 # Entrypoint for runtime pre-processing
 COPY ../docker-entrypoint-hdl.sh /usr/local/bin/docker-entrypoint.sh
+
+# Create a non-root user
+RUN useradd -ms /bin/bash user
