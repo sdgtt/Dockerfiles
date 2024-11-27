@@ -7,12 +7,12 @@ RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt update
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libpng-dev libfreetype6-dev libblas-dev liblapack-dev gfortran build-essential xorg
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y openjdk-8-jre openjdk-8-jdk libgtk2.0-0 libxss1 libxt6 zip unzip curl wget tar git xvfb
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y fakeroot libncurses5-dev libncurses5 libssl-dev ccache dfu-util u-boot-tools device-tree-compiler libhidapi-dev
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libssl-dev mtools bc python cpio zip unzip rsync file wget
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y mtools bc python cpio rsync file
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libicu66 libicu-dev screen
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y graphviz rpm bzip2 gzip
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg --add-architecture i386
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y lib32stdc++6
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y cmake make build-essential libxml2-dev bison flex libcdk5-dev cmake
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y cmake make libxml2-dev bison flex libcdk5-dev
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libaio-dev libusb-1.0-0-dev libserialport-dev libzstd-dev
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libavahi-common-dev libavahi-client-dev
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y python3-pip iputils-ping sudo net-tools iproute2 python3-tk
@@ -36,6 +36,7 @@ RUN /scripts/install_libserialport.sh
 RUN /scripts/install_libiio.sh 
 RUN /scripts/install_nebula.sh
 RUN /scripts/install_telemetry.sh
+RUN /scripts/install_pyadi-iio_req.sh
 
 # Cleanup
 RUN apt-get clean

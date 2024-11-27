@@ -25,7 +25,7 @@ RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y python3-pip bpython pyth
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND python3 -m pip install --upgrade pip
 
 # For HDL
-RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y cmake make build-essential libxml2-dev bison flex libcdk5-dev cmake
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y cmake make build-essential libxml2-dev bison flex libcdk5-dev
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libaio-dev libusb-1.0-0-dev libserialport-dev libzstd-dev
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libavahi-common-dev libavahi-client-dev
 
@@ -47,6 +47,7 @@ RUN /scripts/install_libserialport.sh
 RUN /scripts/install_libiio.sh 
 RUN /scripts/install_nebula.sh
 RUN /scripts/install_telemetry.sh
+RUN /scripts/install_pyadi-iio_req.sh
 
 # Cleanup
 RUN apt-get clean

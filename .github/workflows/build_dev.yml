@@ -35,6 +35,7 @@ jobs:
             "pyadi-iio-python-3_10",
             "pyadi-iio-python-3_11",
             "dev",
+            "gui-testing",
           ]
         include:
           - project: "hdl"
@@ -91,6 +92,9 @@ jobs:
           - project: "dev"
             DOCKERFILE: "Dockerfile-dev"
             TAG_ROOT: "dev"
+          - project: "gui-testing"
+            DOCKERFILE: "gui-testing/Dockerfile-gui-generic"
+            TAG_ROOT: "gui-generic"
 
     steps:
       - name: Checkout
