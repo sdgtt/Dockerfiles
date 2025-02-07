@@ -15,6 +15,7 @@ RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y libssl-dev mtools bc pyt
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y python3-pip iputils-ping sudo net-tools iproute2 bison flex libtinfo5
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg --add-architecture i386
 RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y lib32stdc++6
+RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND apt-get install -y sudo
 
 # Install patched glibc
 RUN wget https://github.com/mathworks/build-glibc-bz-19329-patch/releases/download/ubuntu-focal/all-packages.tar.gz
@@ -29,7 +30,21 @@ RUN DEBIAN_FRONTEND=$DEBIAN_FRONTEND dpkg-reconfigure dash
 RUN apt-get clean
 
 # Add HSP
-COPY mlhsp /mlhsp
+# COPY mlhsp /mlhsp
+
+# Add MATLAB config
+#ADD .matlab /root/.matlab
+ADD .matlab /home/tcollins/.matlab
 
 # Entrypoint for runtime pre-processing
-COPY docker-entrypoint-hdl.sh /usr/local/bin/docker-entrypoint.sh
+#RUN mkdir /work
+
+RUN useradd -u 57532 --create-home --shell /bin/bash -G sudo tcollins
+RUN groupadd -g 17140 romlx
+RUN usermod -aG romlx tcollins
+RUN echo 'tcollins:tcollins' | chpasswd
+RUN chown -R tcollins:tcollins /home/tcollins
+
+USER tcollins
+WORKDIR /home/tcollins
+#RUN chmod 777 /work
