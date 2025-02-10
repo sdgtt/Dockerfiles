@@ -13,7 +13,7 @@ cp -r /opt/MATLAB/HSPs /scratch/
 #mount --bind /mlhsp mlhsp
 
 cp -r /home/tcollins/.matlab .
-mv /scratch/HSPs .
+cp -r /scratch/HSPs .
 
 docker build -f Dockerfile-ml -t tfcollins/hdl-ci:latest .
 
