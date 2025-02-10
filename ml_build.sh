@@ -7,8 +7,13 @@ cp -r /opt/MATLAB/HSPs /scratch/
 ls /scratch/HSPs
 
 # Build cores
+export DISPLAY_ID=:$(shuf -i 10-1000 -n 1)
+Xvfb $DISPLAY_ID &
+XVFB_PID=$!
+export DISPLAY=$DISPLAY_ID
 /opt/MATLAB/$1/bin/matlab -nodesktop -nodisplay -nosplash -r "matlabshared.supportpkg.setSupportPackageRoot('/scratch/HSPs/${1}/');exit(0);"
 /opt/MATLAB/$1/bin/matlab -nodesktop -nodisplay -nosplash -r "hdlsetuptoolpath('ToolName','Xilinx Vivado','ToolPath','/opt/Xilinx/Vivado/${2}/bin/vivado');setupzynqradiorepositories();exit(0);"
+kill -9 $XVFB_PID || true
 
 # Build container
 #mkdir -p mlhsp
