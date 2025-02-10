@@ -23,5 +23,7 @@ cp -r /home/tcollins/.matlab .
 cp -r /scratch/HSPs .
 
 docker build -f Dockerfile-ml -t tfcollins/hdl-ci:latest .
+docker run -it tfcollins/hdl-ci:latest  /bin/bash -c '/opt/MATLAB/$1/bin/matlab -nodesktop -nodisplay -nosplash -r "disp(matlabshared.supportpkg.getSupportPackageRoot());exit(0);"'
+
 
 #umount mlhsp
