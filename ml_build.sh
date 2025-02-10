@@ -2,7 +2,9 @@
 set -xe
 
 # Create tmp HSP folder
+rm -rf /scratch/HSPs
 cp -r /opt/MATLAB/HSPs /scratch/
+ls /scratch/HSPs
 
 # Build cores
 /opt/MATLAB/$1/bin/matlab -nodesktop -nodisplay -nosplash -r "matlabshared.supportpkg.setSupportPackageRoot('/scratch/HSPs/${1}/');exit(0);"
