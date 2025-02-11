@@ -6,8 +6,8 @@ set -xe
 # 2. From VNC MATLAB runs: matlabshared.supportpkg.setSupportPackageRoot('/scratch/HSPs/${1}') 
 
 # Create tmp HSP folder
-#rm -rf /scratch/HSPs
-#cp -r /opt/MATLAB/HSPs /scratch/
+rm -rf /scratch/HSPs
+cp -r /opt/MATLAB/HSPs /scratch/
 ls /scratch/HSPs
 
 # Build cores
@@ -38,10 +38,10 @@ sleep 5
 XVFB_PID=$!
 sleep 5
 export DISPLAY=$DISPLAY_ID
-#docker run -v /opt/MATLAB:/opt/MATLAB:ro --name temp-ci -d tfcollins/hdl-ci:latest tail -f /dev/null
-#docker exec temp-ci /bin/bash -c '/opt/MATLAB/R2023b/bin/matlab -nodesktop -nodisplay -nosplash -r "disp(matlabshared.supportpkg.setSupportPackageRoot( \"/HSPs/R2023b\"));exit(0);"'
-#docker commit temp-ci tfcollins/hdl-ci:latest
-#docker rm -f temp-ci
+docker run -v /opt/MATLAB:/opt/MATLAB:ro --name temp-ci -d tfcollins/hdl-ci:latest tail -f /dev/null
+docker exec temp-ci /bin/bash -c '/opt/MATLAB/R2023b/bin/matlab -nodesktop -nodisplay -nosplash -r "disp(matlabshared.supportpkg.setSupportPackageRoot( \"/HSPs/R2023b\"));exit(0);"'
+docker commit temp-ci tfcollins/hdl-ci:latest
+docker rm -f temp-ci
 
 # Check
 docker run -v /opt/MATLAB:/opt/MATLAB:ro tfcollins/hdl-ci:latest  /bin/bash -c '/opt/MATLAB/R2023b/bin/matlab -nodesktop -nodisplay -nosplash -r "disp(matlabshared.supportpkg.getSupportPackageRoot());pause(5);exit(0);"'
