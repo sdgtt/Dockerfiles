@@ -34,7 +34,7 @@ docker commit temp-ci tfcollins/hdl-ci:latest
 docker rm -f temp-ci
 
 # Check
-docker run -v /opt/MATLAB:/opt/MATLAB:ro tfcollins/hdl-ci:latest  /bin/bash -c '/opt/MATLAB/R2023b/bin/matlab -nodesktop -nodisplay -nosplash -r "disp(matlabshared.supportpkg.getSupportPackageRoot());exit(0);"'
+docker run -v /opt/MATLAB:/opt/MATLAB:ro tfcollins/hdl-ci:latest  /bin/bash -c '/opt/MATLAB/R2023b/bin/matlab -nodesktop -nodisplay -nosplash -r "disp(matlabshared.supportpkg.getSupportPackageRoot());pause(5);exit(0);"'
 kill -9 $XVFB_PID || true
 
 #umount mlhsp
