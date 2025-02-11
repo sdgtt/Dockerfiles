@@ -28,6 +28,7 @@ kill -9 $XVFB_PID || true
 rm -rf .matlab || true
 cp -r /home/tcollins/.matlab .
 cp -r /scratch/HSPs .
+echo "(R2023b)@/opt/MATLAB/R2023b" > HSPs/R2023b/sppkg_matlab_info.txt
 
 wget https://raw.githubusercontent.com/mathworks-ref-arch/container-images/refs/heads/main/matlab-deps/r2023b/ubuntu20.04/base-dependencies.txt
 docker build -f Dockerfile-ml -t tfcollins/hdl-ci:latest .
