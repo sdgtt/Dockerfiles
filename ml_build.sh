@@ -29,7 +29,7 @@ Xvfb $DISPLAY_ID &
 XVFB_PID=$!
 export DISPLAY=$DISPLAY_ID
 docker run -v /opt/MATLAB:/opt/MATLAB:ro --name temp-ci -d tfcollins/hdl-ci:latest tail -f /dev/null
-docker exec temp-ci /bin/bash -c '/opt/MATLAB/R2023b/bin/matlab -nodesktop -nodisplay -nosplash -r "disp(matlabshared.supportpkg.setSupportPackageRoot( \"/HSPs/${1}\"));exit(0);"'
+docker exec temp-ci /bin/bash -c '/opt/MATLAB/R2023b/bin/matlab -nodesktop -nodisplay -nosplash -r "disp(matlabshared.supportpkg.setSupportPackageRoot( \"/HSPs/R2023b\"));exit(0);"'
 docker commit temp-ci tfcollins/hdl-ci:latest
 docker rm -f temp-ci
 
