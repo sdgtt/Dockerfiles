@@ -34,7 +34,7 @@ RUN export DEBIAN_FRONTEND=noninteractive &&\
     tar -x -f all-packages.tar.gz \
         --exclude glibc-*.deb \
         --exclude libc6-dbg*.deb &&\
-    apt-get install --yes --no-install-recommends ./*.deb &&\
+    apt-get install --yes --allow-downgrades --no-install-recommends ./*.deb &&\
     rm -fr /packages
 WORKDIR /
 
