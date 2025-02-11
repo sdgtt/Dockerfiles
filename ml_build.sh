@@ -23,6 +23,13 @@ cp -r /home/tcollins/.matlab .
 cp -r /scratch/HSPs .
 
 docker build -f Dockerfile-ml -t tfcollins/hdl-ci:latest .
+
+docker run -v /opt/MATLAB:/opt/MATLAB:ro --name temp-ci -d tfcollins/hdl-ci:latest tail -f /dev/null
+docker exec temp-ci /bin/bash -c '/opt/MATLAB/R2023b/bin/matlab -nodesktop -nodisplay -nosplash -r "disp(matlabshared.supportpkg.setSupportPackageRoot( \"/HSPs/${1}\"));exit(0);"'
+docker commit temp-ci tfcollins/hdl-ci:latest
+docker rm -f temp-ci
+
+# Check
 docker run -v /opt/MATLAB:/opt/MATLAB:ro -it tfcollins/hdl-ci:latest  /bin/bash -c '/opt/MATLAB/${1}/bin/matlab -nodesktop -nodisplay -nosplash -r "disp(matlabshared.supportpkg.getSupportPackageRoot());exit(0);"'
 
 
