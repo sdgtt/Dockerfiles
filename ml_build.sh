@@ -29,7 +29,7 @@ rm -rf .matlab || true
 cp -r /home/tcollins/.matlab .
 cp -r /scratch/HSPs .
 
-wget https://raw.githubusercontent.com/mathworks-ref-arch/container-images/refs/heads/main/matlab-deps/r2023b/ubuntu22.04/base-dependencies.txt
+wget https://raw.githubusercontent.com/mathworks-ref-arch/container-images/refs/heads/main/matlab-deps/r2023b/ubuntu20.04/base-dependencies.txt
 docker build -f Dockerfile-ml -t tfcollins/hdl-ci:latest .
 
 export DISPLAY_ID=:$(shuf -i 10-1000 -n 1)
