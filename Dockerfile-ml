@@ -31,7 +31,7 @@ RUN apt-get clean
 
 # Add HSP
 # COPY mlhsp /mlhsp
-COPY HSPs /scratch/HSPs
+COPY HSPs /HSPs
 
 # Add MATLAB config
 #ADD .matlab /root/.matlab
