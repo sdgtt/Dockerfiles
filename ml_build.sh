@@ -1,9 +1,13 @@
 #!/bin/bash
 set -xe
 
+# Assumptions
+# 1. HSP folder is located in /scratch/HSPs/<ML Release>
+# 2. From VNC MATLAB runs: matlabshared.supportpkg.setSupportPackageRoot('/scratch/HSPs/${1}') 
+
 # Create tmp HSP folder
-rm -rf /scratch/HSPs
-cp -r /opt/MATLAB/HSPs /scratch/
+#rm -rf /scratch/HSPs
+#cp -r /opt/MATLAB/HSPs /scratch/
 ls /scratch/HSPs
 
 # Build cores
