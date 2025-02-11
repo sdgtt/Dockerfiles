@@ -21,6 +21,7 @@ kill -9 $XVFB_PID || true
 #mkdir -p mlhsp
 #mount --bind /mlhsp mlhsp
 
+rm -rf .matlab || true
 cp -r /home/tcollins/.matlab .
 cp -r /scratch/HSPs .
 
