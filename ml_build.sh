@@ -4,6 +4,7 @@ set -xe
 # Assumptions
 # 1. HSP folder is located in /scratch/HSPs/<ML Release>
 # 2. From VNC MATLAB runs: matlabshared.supportpkg.setSupportPackageRoot('/scratch/HSPs/${1}') 
+# 3. Make sure the App installation path (only set from MATLAB's GUI preferences) is somewhere the user inside docker can write to 
 
 # Create tmp HSP folder
 rm -rf /scratch/HSPs
