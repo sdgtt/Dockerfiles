@@ -1,12 +1,17 @@
 #!/bin/bash
 set -xe
 
-# Assumptions
-# 0. From 1 VM HSPs have been installed into /opt/MATLAB/HSPs
-# 0.1 Then a copy is made to /scratch/HSPs for other VMs to use when this script runs
-# 1. HSP folder is located in /scratch/HSPs/<ML Release>
-# 2. From VNC MATLAB runs: matlabshared.supportpkg.setSupportPackageRoot('/scratch/HSPs/${1}') 
-# 3. Make sure the App installation path (only set from MATLAB's GUI preferences) is somewhere the user inside docker can write to 
+# Require steps before running scripts for ROM VMs
+# 1. Launch MATLAB's GUI
+# 2. Run: matlabshared.supportpkg.setSupportPackageRoot('/opt/MATLAB/HSPs/<matlab versions')
+# 3. Set the Addons install path (from MATLAB preferences) to be /scratch/HSPs/Addons/<matlab version>
+# 4. Install addons (Zynq Radio support package)
+# 5. Build IP in MATLB by running: hdlsetuptoolpath('ToolName','Xilinx Vivado','ToolPath','/opt/Xilinx/Vivado/<vivado version>/bin/vivado');setupzynqradiorepositories();
+# 6. From the terminal (not MATLAB) run:
+#    rm -rf /scratch/HSPs || true
+#    cp -r /opt/MATLAB/HSPs /scratch/
+# 7. Run: matlabshared.supportpkg.setSupportPackageRoot('/scratch/HSPs/<matlab versions')
+# 8. Close MATLAB
 
 # Create tmp HSP folder
 rm -rf /scratch/HSPs
@@ -21,7 +26,7 @@ XVFB_PID=$!
 sleep 5
 export DISPLAY=$DISPLAY_ID
 #/opt/MATLAB/$1/bin/matlab -nodesktop -nodisplay -nosplash -r "matlabshared.supportpkg.setSupportPackageRoot('/opt/MATLAB/HSPs/${1}');exit(0);"
-/opt/MATLAB/$1/bin/matlab -nodesktop -nodisplay -nosplash -r "hdlsetuptoolpath('ToolName','Xilinx Vivado','ToolPath','/opt/Xilinx/Vivado/${2}/bin/vivado');setupzynqradiorepositories();pause(5);exit(0);"
+#/opt/MATLAB/$1/bin/matlab -nodesktop -nodisplay -nosplash -r "hdlsetuptoolpath('ToolName','Xilinx Vivado','ToolPath','/opt/Xilinx/Vivado/${2}/bin/vivado');setupzynqradiorepositories();pause(5);exit(0);"
 kill -9 $XVFB_PID || true
 
 # Build container
