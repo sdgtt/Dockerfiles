@@ -2,6 +2,8 @@
 set -xe
 
 # Assumptions
+# 0. From 1 VM HSPs have been installed into /opt/MATLAB/HSPs
+# 0.1 Then a copy is made to /scratch/HSPs for other VMs to use when this script runs
 # 1. HSP folder is located in /scratch/HSPs/<ML Release>
 # 2. From VNC MATLAB runs: matlabshared.supportpkg.setSupportPackageRoot('/scratch/HSPs/${1}') 
 # 3. Make sure the App installation path (only set from MATLAB's GUI preferences) is somewhere the user inside docker can write to 
