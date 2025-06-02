@@ -23,9 +23,9 @@ jobs:
             "libiio-debian-bullseye",
             "libiio-ubuntu-20.04",
             "libiio-ubuntu-22.04",
+            "libiio-ubuntu-24.04",
             "libiio-fedora-34",
             "libiio-fedora-28",
-            "libiio-centos-7",
             "libiio-opensuse-15.4",
             "test-harness-ubuntu-22_04",
             "pyadi-iio-python-3_7",
@@ -48,6 +48,9 @@ jobs:
           - project: "libiio-ubuntu-22.04"
             DOCKERFILE: "libiio/Dockerfile-ubuntu-22.04"
             TAG_ROOT: "libiio_ubuntu_22_04-ci"
+          - project: "libiio-ubuntu-24.04"
+            DOCKERFILE: "libiio/Dockerfile-ubuntu-24.04"
+            TAG_ROOT: "libiio_ubuntu_24_04-ci"
           - project: "libiio-fedora-34"
             DOCKERFILE: "libiio/Dockerfile-fedora-34"
             TAG_ROOT: "libiio_fedora_34-ci"
@@ -60,9 +63,6 @@ jobs:
           - project: "libiio-fedora-28"
             DOCKERFILE: "libiio/Dockerfile-fedora-28"
             TAG_ROOT: "libiio_fedora_28-ci"
-          - project: "libiio-centos-7"
-            DOCKERFILE: "libiio/Dockerfile-centos-7"
-            TAG_ROOT: "libiio_centos_7-ci"
           - project: "libiio-opensuse-15.4"
             DOCKERFILE: "libiio/Dockerfile-opensuse-15.4"
             TAG_ROOT: "libiio_opensuse_15_4-ci"
@@ -123,7 +123,7 @@ jobs:
 
 
   docker_arm:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -157,7 +157,7 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
-          platforms: arm,arm64,ppc64le,s390x,arm/v6
+          platforms: arm,arm64,ppc64le,s390x
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v2
@@ -185,4 +185,4 @@ jobs:
           tags: tfcollins/${{ matrix.TAG_ROOT }}:latest
           file: Dockerfile-arm
           context: .
-          platforms: linux/arm,linux/arm64,linux/ppc64le,linux/s390x,linux/arm/v6
+          platforms: linux/arm,linux/arm64,linux/ppc64le,linux/s390x
