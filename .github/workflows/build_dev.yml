@@ -24,6 +24,7 @@ jobs:
             "libiio-ubuntu-20.04",
             "libiio-ubuntu-22.04",
             "libiio-ubuntu-24.04",
+            "libiio-ubuntu-26.04",
             "libiio-fedora-34",
             "libiio-fedora-28",
             "libiio-opensuse-15.4",
@@ -51,6 +52,9 @@ jobs:
           - project: "libiio-ubuntu-24.04"
             DOCKERFILE: "libiio/Dockerfile-ubuntu-24.04"
             TAG_ROOT: "libiio_ubuntu_24_04-ci"
+          - project: "libiio-ubuntu-26.04"
+            DOCKERFILE: "libiio/Dockerfile-ubuntu-26.04"
+            TAG_ROOT: "libiio_ubuntu_26_04-ci"
           - project: "libiio-fedora-34"
             DOCKERFILE: "libiio/Dockerfile-fedora-34"
             TAG_ROOT: "libiio_fedora_34-ci"
