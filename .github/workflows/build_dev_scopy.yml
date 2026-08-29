@@ -1,0 +1,68 @@
+name: ci-build-deploy
+
+on:
+  push:
+    branches:
+      - "main"
+      - "scopy"
+  schedule:
+    - cron: 0 0 * * 0
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+          [
+            "ubuntu-20.04",
+            "ubuntu-22.04",
+          ]
+        include:
+          - project: "ubuntu-20.04"
+            DOCKERFILE: "docker_ubuntu20"
+            TAG_ROOT: "scopy_ubuntu_20_04-ci"
+          - project: "ubuntu-22.04"
+            DOCKERFILE: "docker_ubuntu22"
+            TAG_ROOT: "scopy_ubuntu_22_04-ci"
+
+    steps:
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        if: github.ref == 'refs/heads/main'
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Log in to the GitHub Container registry
+        if: github.ref == 'refs/heads/main'
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download Dockerfiles from scopy repo
+        run: |
+          sudo apt install -y wget
+          wget https://raw.githubusercontent.com/analogdevicesinc/scopy/dev/ci/ubuntu/${{ matrix.DOCKERFILE }}/Dockerfile
+
+      - name: Build and push Docker images
+        id: docker_build
+        uses: docker/build-push-action@v4.1.1
+        with:
+          context: .
+          file: Dockerfile
+          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: |
+            tfcollins/${{ matrix.TAG_ROOT }}:latest
+            ghcr.io/sdgtt/dockerfiles/${{ matrix.TAG_ROOT }}:latest
